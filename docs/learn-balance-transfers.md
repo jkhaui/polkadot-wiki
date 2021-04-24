@@ -64,6 +64,30 @@ existential deposit of 1 DOT and the account cannot be initialized with such a l
 Note that even if the transfer fails due to a keep-alive check, the transaction fee will be deducted
 from the sending account if you attempt to transfer.
 
+### Existing Reference Error
+
+If you are trying to reap an account and you recieve an error stating "There is an existing reference count on the sender account. As such the account cannot be reaped from the state", then you have existing references to this account that must first be removed before it can be reaped. The following actions cause references to be created:
+
+- Session keys exist
+- Locks
+- Setting recovery info
+- Staking set information
+
+#### Purging Session Keys
+
+If you used this account to setup a validator and did not purge your keys before you unbonded your coins, you need to purge your keys. You can do this by seeing the [How to Stop Validating](#maintain-guides-how-to-stop-validating)page. This can also be checked by checking `session.nextKeys` in the chain state.
+
+#### Checking for Locks
+
+You can check for locks by navigating to `Accounts > Accounts` in [PolkadotJS Apps](https://polkadot.js.org/apps/#/). Then, click the dropdown arrow of the relevant account under the 'balances' colum. If it shows that some tokens are in a 'locked' state, you can see why by hovering over the information icon next to it.
+
+#### Recovery Info
+
+Currently, Polkadot does not use the recovery pallet, so this is probably not why tokens are locked.
+
+#### Checking for Staking Information
+
+Insert useful stuff here!
 ### From the Accounts Page
 
 Navigate to the "Accounts" page by selecting the "Accounts" tab from the "Accounts" dropdown located
